@@ -1,7 +1,7 @@
 <?php
 
 
-add_filter('init', 'sample_custom_hook', 10, 2);
+add_action('wp_footer', 'sample_custom_hook', 100);
 
 function sample_custom_hook() {
     echo "<script>console.log('Sample hook');</script>";
