@@ -5,7 +5,6 @@
         <section>
 
             <h1><?php _e( 'Mokka framework', 'mokka' ); ?></h1>
-
         </section>
         <!-- /section -->
     </main>

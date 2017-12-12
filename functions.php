@@ -31,27 +31,32 @@ $theme_config = [
         ['tilt', '/assets/js/tilt.jquery.min.js',['jquery']],
         ['main', '/assets/js/main.js',[]],
     ],
-    'custom-post-types' => [
-        'sample'
-    ],
-    'widgets' => [ ], //todo
-    'sidebars' => [ ], //todo
-    'shortcodes' => [ ], //todo
     'menus' =>[
         ['main-menu', 'Main menu']
+    ],
+    'custom-post-types' => [
+        'sample'
     ],
     'custom-hooks' =>[
         'sample-custom-hook',
     ],
+    'widgets' => [
+        'sample-widget'
+    ],
+    'sidebars' => [
+        ["Sample sidebar",'sample-sidebar',"Lorem ipsum description",'<li id="%1$s" class="widget %2$s">','</li>','<h2 class="widgettitle">','</h2>']
+    ],
+    'shortcodes' => [
+        'sample-shortcode'
+    ],
     'includes' => [
-      'helpers',
+      'carbon-helpers',
     ],
     'carbon_fields'=>[
         'theme-options',
         'sample-cpt-fields'
     ]
 ];
-
 
 $mokka = new Mokka($theme_config);
 $mokka->init();

@@ -25,7 +25,12 @@ class Mokka
 
         $this->configureMenus();
         $this->configureCPT();
+        $this->configureIncludes();
         $this->configureCustomHooks();
+
+        $this->configureSidebars();
+        $this->configureWidgets();
+        $this->configureShortcodes();
     }
 
     private function setVersion()
@@ -139,6 +144,14 @@ class Mokka
         }
     }
 
+    private function configureIncludes(){
+        if (isset($this->config['includes'])) {
+            foreach($this->config['includes'] as $custominclude){
+                require_once(get_template_directory().'/inc/includes/'.$custominclude.'.php');
+            }
+        }
+    }
+
     private function configureCarbonFields(){
         if (isset($this->config['carbon_fields'])) {
             add_action( 'carbon_fields_register_fields', function() {
@@ -153,6 +166,46 @@ class Mokka
             });
         }
     }
+
+    private function configureSidebars(){
+        if (isset($this->config['sidebars'])) {
+            add_action('widgets_init', function () {
+                foreach($this->config['sidebars'] as $sidebar) {
+                    register_sidebar(array(
+                        'name' => __($sidebar[0], $this->locale),
+                        'id' => $sidebar[1],
+                        'description' => __($sidebar[2], $this->locale),
+                        'before_widget' => $sidebar[3],
+                        'after_widget' => $sidebar[4],
+                        'before_title' => $sidebar[5],
+                        'after_title' => $sidebar[6],
+                    ));
+                }
+            });
+        }
+    }
+
+    private function configureWidgets(){
+        if (isset($this->config['widgets'])) {
+            add_action('widgets_init', function (){
+                foreach($this->config['widgets'] as $widget) {
+                    require_once(get_template_directory().'/inc/widgets/'.$widget.'/class-'.$widget.'.php');
+                    register_widget( implode('',explode('-',ucwords($widget,'-'))) );
+                }
+            });
+        }
+    }
+
+    private function configureShortcodes(){
+        if (isset($this->config['shortcodes'])) {
+            foreach($this->config['shortcodes'] as $shortcode) {
+                require_once(get_template_directory().'/inc/shortcodes/'.$shortcode.'/'.$shortcode.'.php');
+                add_shortcode($shortcode, str_replace('-','_',$shortcode).'_exec');
+            }
+        }
+    }
+
+
 
 
 }
