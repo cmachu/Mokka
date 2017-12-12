@@ -1,0 +1,95 @@
+$lightsaber-border: #bebebe;
+$lightsaber-color: #ff6d52;
+$lightsaber-size: 12px;
+$lightsaber-speed: 2s;
+$lightsaber-line-height:18px;
+$lightsaber-font-size: 12px;
+
+.lightsaber {
+  position: relative;
+  font-size: $lightsaber-font-size;
+
+  &:before {
+    content: "";
+    display: block;
+    height: $lightsaber-size / 2;
+    width: 0px;
+    top: $lightsaber-line-height + $lightsaber-size / 4;
+    position: absolute;
+    margin-left: $lightsaber-size / 4;
+    background-color: $lightsaber-color;
+
+    animation: animate-lightsaber $lightsaber-speed ease-in-out 0s 1 normal forwards;
+    -moz-animation: animate-lightsaber $lightsaber-speed ease-in-out 0s 1 normal forwards; /* Firefox */
+    -webkit-animation: animate-lightsaber $lightsaber-speed ease-in-out 0s 1 normal forwards; /* Safari and Chrome */
+    -o-animation: animate-lightsaber $lightsaber-speed ease-in-out 0s 1 normal forwards; /* Opera */
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: $lightsaber-size;
+    border: 1px solid;
+    border-color: $lightsaber-border;
+    position: absolute;
+    top: $lightsaber-line-height;
+    box-sizing: border-box;
+  }
+
+  b{
+    font-weight:normal;
+    font-size: 10px;
+    line-height: 18px;
+    float:right;
+  }
+}
+
+
+@mixin lightsaber-generate() {
+  @for $i from 0 to 101{
+    .lightsaber-#{$i}:before { width: $i*1%; }
+  }
+}
+@include lightsaber-generate();
+
+.lightsaber-100:before{
+  width:calc( 100% - ( #{$lightsaber-size} / 2 ) ) !important;
+}
+
+
+@keyframes animate-lightsaber {
+  0% {
+    max-width:0px;
+  }
+  100% {
+    max-width:100%;
+  }
+}
+
+@-moz-keyframes animate-lightsaber {
+  0% {
+    max-width:0px;
+  }
+  100% {
+    max-width:100%;
+  }
+}
+
+@-webkit-keyframes animate-lightsaber {
+  0% {
+    max-width:0px;
+  }
+  100% {
+    max-width:100%;
+  }
+}
+
+@-o-keyframes animate-lightsaber {
+  0% {
+    max-width:0px;
+  }
+  100% {
+    max-width:100%;
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "name": "cmachu/portfolio",
+    "require": {
+        "htmlburger/carbon-fields": "^2.1"
+    },
+    "authors": [
+        {
+            "name": "Paweł Ćmachowski",
+            "email": "pawel.cmachowski@polcode.net"
+        }
+    ]
+}
